@@ -1,0 +1,131 @@
+﻿The folder contains 3 scripts in order to train the model and generate Test data S010 256-Beam pairs output:
+
+1) beam_train_model.py
+2) beam_test_model.py
+3) ModelHandler.py
+4) beam_test_pred.csv
+5) model.h5
+6) model.json
+7) PS-012 - ML5G-PHY -Beam-Selection - DataExplorers - Final Report.pdf
+8) readme.txt
+
+==================================================================================
+=======================How to run scripts to get above results====================
+==================================================================================
+
+1) Place the data folder in the same directory of the 3 scripts 
+   (beam_train_model.py, beam_test_model.py and ModelHandler.py)
+
+2) Data folder structure and naming should be as the following:
+
+.
+├── s008
+│    └──baseline_data		
+│         ├── beam_output	
+│         │           ├── beams_output_train.npz
+│         │           └── beams_output_validation.npz
+│         │           
+│         │
+│         ├── coord_input	
+│         │           ├── coord_train.npz
+│         │           └── coord_validation.npz
+│         │           
+│         │           
+│         │
+│         ├── lidar_input	
+│         │           ├── lidar_train.npz
+│         │           └── lidar_validation.npz
+│         │           
+│         │           
+│         │
+│         └── image_input	
+│                     ├── img_input_train_20.npz
+│                     └── img_input_validation_20.npz
+│                     
+│                     
+│          
+│         
+└── s010
+     └──baseline_data		
+          ├── coord_input	
+          │           └── coord_test.npz
+          │
+          ├── lidar_input	
+          │           └── lidar_test.npz
+          │
+          └── image_input	
+                      └── img_input_test_20.npz
+          
+                               
+
+
+3) run the beam_train_model.py script this will train the model for 100 ephochs 
+   and save the trained model and generate optional outputs mentioned in 
+   beam_train_model.py section below
+
+4) run the beam_test_model.py script to generate the output labels predicted for 
+   the s010 input dataset saved in beam_test_pred.csv
+
+=====================================================
+==================ModelHandler.py====================
+=====================================================
+This code is used by the main code to create the 
+Li-DAR Convolutional Neural Network (CNN) and 
+Coordinates Neural Network (NN) models.
+So this code contains the hyperparameters chosen 
+for each model.
+
+Function: passing created models to Main.py
+
+Note: this code is not intended to run soley.
+
+=====================================================
+================beam_train_model.py==================
+=====================================================
+This is the model training code where running it will
+ create, compile, train and save the final model
+
+Outputs: 
+
+     1) Saved trained model (weights (model.h5) and 
+	    model (model.json)) 
+        
+
+	 2) two text files namely 
+        (Train_acc_Combinedmodel_Lidar_Coor.txt) 
+	    and (Val_acc_Combinedmodel_Lidar_Coor.txt)
+	    contains the training and validation 
+        accuracy
+
+	 3) Training and validation accuracy figure
+
+=====================================================
+================beam_test_model.py==================
+=====================================================
+This is the model prediction code where running it will
+generate the output label predicted for the s010 
+input dataset
+
+Outputs: 
+
+1) beam_test_pred.csv which contains 
+   7277 row (examples) x 256 columns (beam pairs indices)
+
+=====================================================
+======================model.json=====================
+=====================================================
+The trained model parameters stored as in json format
+
+=====================================================
+======================model.h5=====================
+=====================================================
+The trained model weights stored as in h5 format
+
+=====================================================
+================beam_test_pred.csv==================
+=====================================================
+This is the CSV file containing 
+7277 row (examples) x 256 columns (beam pairs indices) 
+output labels predicted for the s010 input dataset
+
+=======================================================
